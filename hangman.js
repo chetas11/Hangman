@@ -19,9 +19,16 @@ let answers = '';
 let maxwrong = 7;
 let mistakes = 0;
 let guessed = [];
+let wordStatus = null;
 
 function randomWord(){
     answers = programmingLaunguages[Math.floor(Math.random()*programmingLaunguages.length)];
+}
+
+function guessedWord(){
+    wordStatus = answers.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : " _ ")).join('');
+
+    document.getElementById("wordSpotlight").innerHTML = wordStatus;
 }
 
 function generateButtons(){
@@ -35,5 +42,8 @@ function generateButtons(){
     document.getElementById("keyboard").innerHTML = buttonsHTML;
 }
     document.getElementById("maxwrong").innerHTML= maxwrong;
+
+
 randomWord();
 generateButtons();
+guessedWord();
