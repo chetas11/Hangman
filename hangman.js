@@ -16,7 +16,7 @@ var programmingLaunguages = [
 ]
 
 let answers = '';
-let maxwrong = 7;
+let maxwrong = 6;
 let mistakes = 0;
 let guessed = [];
 let wordStatus = null;
@@ -31,11 +31,15 @@ function guessedWord(){
     document.getElementById("wordSpotlight").innerHTML = wordStatus;
 }
 
+
+
+
+
 function generateButtons(){
-    let buttonsHTML = "abcdefghijklmnopqrestuvwxyz".split('').map(letter =>
+    let buttonsHTML = "qwertyuiopasdfghjklzxcvbnm".split('').map(letter =>
         `
         <button
-        class = "btn btn-lg btn-primary m-2" id = '` + letter + `' onClick ="handleGuess('` + letter + `')">
+        class = "keys btn btn-lg btn-primary m-2" id = '` + letter + `' onClick ="handleGuess('` + letter + `')">
         ` + letter + `
         </button>
         `).join("");
@@ -44,6 +48,59 @@ function generateButtons(){
     document.getElementById("maxwrong").innerHTML= maxwrong;
 
 
+
+function handleGuess(choseLetter){
+        guessed.indexOf(choseLetter) == -1 ? guessed.push(choseLetter): null;
+        document.getElementById(choseLetter).setAttribute('disabled', true)
+    
+        if(answers.indexOf(choseLetter) >= 0){
+            guessedWord();
+            checkifWon();
+        }else if(answers.indexOf(choseLetter) === -1){
+            mistakes++;
+            updateMistakes();
+            checkIfLost();
+            updateHangmanPic();
+        }
+    }
+
+function updateHangmanPic(){
+    document.getElementById('hangmanpic').src = './images/'+ mistakes +'.jpg';
+}
+
+function checkIfLost(){
+    if(mistakes === maxwrong){
+        document.getElementById('keyboard').innerHTML = "Sorry, You Lost try again..."
+        document.getElementById('wordSpotlight').innerHTML = "The answer was "+ answers;
+    }
+}
+
+
+function checkifWon(){
+    if(answers === wordStatus){
+        document.getElementById('keyboard').innerHTML = "Awesome, You Won !!!"
+    }
+}
+
+function updateMistakes(){
+
+    document.getElementById('mistakes').innerHTML = mistakes;
+}
+
+function reset(){
+    mistakes = 0;
+    guessed = [];
+    document.getElementById('hangmanpic').src = './images/0.jpg';
+    
+
+    randomWord();
+    guessedWord();
+    updateMistakes();
+    generateButtons();
+}
+
+
 randomWord();
 generateButtons();
 guessedWord();
+
