@@ -12,6 +12,6 @@
 
  #### Screenshot - 
 
-![Screenshot](https://github.com/chetas11/FetchGitHubUsers/blob/master/Screenshot_2020-12-21%20Document.png)
+![Screenshot](https://github.com/chetas11/Hangman/blob/master/Screenshot_2020-12-22%20HangMan.png)
 
 
